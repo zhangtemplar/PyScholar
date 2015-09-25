@@ -85,9 +85,9 @@ def extract_publication(profile_url, verbose=verbose_citation_list):
     # scholar's artical list
     browser=Browser()
     browser.get(profile_url)
-    publication_list=browser.find_elements_by_class_name('gsc_a_tr')
     publication={}
     while True:
+        publication_list=browser.find_elements_by_class_name('gsc_a_tr')
         for publication_item in publication_list:
             title=publication_item.find_element_by_class_name('gsc_a_at').text
             print title,
@@ -99,7 +99,10 @@ def extract_publication(profile_url, verbose=verbose_citation_list):
             except:
                 citation=0
                 link=None
-            year=int(publication_item.find_element_by_class_name('gsc_a_h').text)
+            try:
+                year=int(publication_item.find_element_by_class_name('gsc_a_h').text)
+            except:
+                year=None
             if citation>0 and verbose>=verbose_citation_list:
                 print 'and its citation list',
                 cited_by=extract_citation_for_publication(link)
