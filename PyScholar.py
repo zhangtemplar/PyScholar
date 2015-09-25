@@ -175,6 +175,7 @@ def next_page(browser):
             # try button instaed
             navigation=browser.find_element_by_id('gsc_bpf_next')
             navigation.click()
+            return True
         except:
             # there is one next
             return False
